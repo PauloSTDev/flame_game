@@ -1,0 +1,11 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "last.imagePath": "/Users/pauloafonsodellameadossantos/Documents/Development/Flame/flame_game/assets/images/oak_woods_v1.0/background",
+    "map.height": 23,
+    "map.lastUsedFormat": "tmx",
+    "map.width": 40,
+    "tileset.lastUsedFormat": "tsx"
+}
