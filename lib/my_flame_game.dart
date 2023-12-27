@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
+import 'package:flame/input.dart';
 import 'package:flame_game/levels/level.dart';
 import 'package:flutter/material.dart';
 
-class MyFlameGame extends FlameGame {
+class MyFlameGame extends FlameGame with HasKeyboardHandlerComponents {
   @override
   Color backgroundColor() => const Color.fromARGB(255, 156, 174, 237);
 
