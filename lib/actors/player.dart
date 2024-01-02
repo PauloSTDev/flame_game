@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame_game/my_flame_game.dart';
-import 'package:flutter/src/services/raw_keyboard.dart';
-import 'package:flutter/src/services/keyboard_key.g.dart';
+import 'package:flutter/services.dart';
 
 enum PlayerState { idle, running }
 
@@ -12,7 +11,7 @@ enum PlayerDirection { left, right, none }
 class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>, KeyboardHandler {
   Player({
     position,
-    required this.character,
+    this.character = 'reaper',
     required this.textureSize,
     required this.amountIdle,
     required this.amountRun,

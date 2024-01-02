@@ -66,6 +66,7 @@ flutter:
     - assets/images/oak_woods_v1.0/background/background_layer_1.png
     - assets/images/character/reaper/
     - assets/images/character/skeleton/
+    - assets/images/HUD/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
