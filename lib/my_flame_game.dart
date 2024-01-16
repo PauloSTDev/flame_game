@@ -10,15 +10,15 @@ import 'package:flutter/material.dart';
 
 class MyFlameGame extends FlameGame with HasKeyboardHandlerComponents, DragCallbacks {
   @override
-  Color backgroundColor() => const Color.fromARGB(255, 156, 174, 237);
+  Color backgroundColor() => const Color.fromARGB(255, 33, 31, 49);
 
   late final CameraComponent cam;
   late JoystickComponent joystick;
   bool showJoystick = true;
 
   Player player = Player(
-    textureSize: Vector2(48, 200),
-    position: Vector2(60, 282),
+    textureSize: Vector2(48, 38),
+    position: Vector2(80, 282),
     amountIdle: 5,
     amountRun: 8,
     stepTimeIdle: 0.2,
@@ -75,18 +75,18 @@ class MyFlameGame extends FlameGame with HasKeyboardHandlerComponents, DragCallb
       case JoystickDirection.left:
       case JoystickDirection.upLeft:
       case JoystickDirection.downLeft:
-        player.playerDirection = PlayerDirection.left;
+        player.horizontalMovement = -1;
         break;
 
       case JoystickDirection.right:
       case JoystickDirection.upRight:
       case JoystickDirection.downRight:
-        player.playerDirection = PlayerDirection.right;
+        player.horizontalMovement = 1;
         break;
 
       default:
         //idle
-        player.playerDirection = PlayerDirection.none;
+        player.horizontalMovement = 0;
         break;
     }
   }
