@@ -64,7 +64,6 @@ flutter:
   assets:
     - assets/tiles/
     - assets/images/Terrain/
-    - assets/images/oak_woods_v1.0/background/background_layer_1.png
     - assets/images/character/reaper/
     - assets/images/character/skeleton/
     - assets/images/HUD/
