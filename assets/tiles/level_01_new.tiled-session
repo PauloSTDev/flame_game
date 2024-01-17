@@ -3,10 +3,22 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "level_01_new.tmx",
     "expandedProjectPaths": [
     ],
     "fileStates": {
+        "flame game.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 2
+        },
+        "level_01_new.tmx": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 319.5,
+                "y": 233
+            }
+        }
     },
     "last.imagePath": "/Users/pauloafonsodellameadossantos/Documents/Development/Flame/flame_game/assets/images/Terrain",
     "map.height": 23,
@@ -15,9 +27,13 @@
     "map.tileWidth": 16,
     "map.width": 40,
     "openFiles": [
+        "flame game.tsx",
+        "level_01_new.tmx"
     ],
     "project": "level_01_new.tiled-project",
     "recentFiles": [
+        "flame game.tsx",
+        "level_01_new.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

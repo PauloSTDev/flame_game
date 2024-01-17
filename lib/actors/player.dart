@@ -31,6 +31,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation runningAnimation;
 
+  final double _gravity = 9.0;
+  final double _jumpForce = 460.0;
+  final double _terminalVelocity = 300;
   double horizontalMovement = 0;
   double moveSpeed = 100;
   Vector2 velocity = Vector2.zero();
@@ -48,6 +51,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
     _updatePlayerMovement(dt);
     _updatePlayerState();
     _checkHorizontalCollisions();
+    _applyGravity(dt);
     super.update(dt);
   }
 
@@ -166,5 +170,11 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
         }
       }
     }
+  }
+
+  void _applyGravity(double dt) {
+    velocity.y += _gravity;
+    velocity.y = velocity.y.clamp(-_jumpForce, _terminalVelocity);
+    position.y += velocity.y * dt;
   }
 }
