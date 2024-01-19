@@ -32,11 +32,13 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
   late final SpriteAnimation runningAnimation;
 
   final double _gravity = 9.0;
-  final double _jumpForce = 460.0;
+  final double _jumpForce = 260.0;
   final double _terminalVelocity = 300;
   double horizontalMovement = 0;
   double moveSpeed = 100;
   Vector2 velocity = Vector2.zero();
+  bool isOnGround = false;
+  bool hasJump = false;
   List<CollisionBlock> collisionBlocks = [];
 
   @override
@@ -52,6 +54,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
     _updatePlayerState();
     _checkHorizontalCollisions();
     _applyGravity(dt);
+    _checkVerticalCollisions();
     super.update(dt);
   }
 
@@ -75,6 +78,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
 
     horizontalMovement += goToLeft ? -1 : 0;
     horizontalMovement += goToRight ? 1 : 0;
+
+    hasJump = keysPressed.contains(LogicalKeyboardKey.arrowUp);
 
     return super.onKeyEvent(event, keysPressed);
   }
@@ -116,30 +121,16 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
   }
 
   void _updatePlayerMovement(double dt) {
-    // double dirX = 0.0;
-    // switch (playerDirection) {
-    //   case PlayerDirection.left:
-    //     if (isFacingRight) {
-    //       flipHorizontallyAroundCenter();
-    //       isFacingRight = false;
-    //     }
-    //     current = PlayerState.running;
-    //     dirX -= moveSpeed;
-    //     break;
-    //   case PlayerDirection.right:
-    //     if (!isFacingRight) {
-    //       flipHorizontallyAroundCenter();
-    //       isFacingRight = true;
-    //     }
-    //     current = PlayerState.running;
-    //     dirX += moveSpeed;
-    //     break;
-    //   default:
-    //     current = PlayerState.idle;
-    // }
-
+    if (hasJump && isOnGround) _playerJump(dt);
     velocity.x = horizontalMovement * moveSpeed;
     position.x += velocity.x * dt;
+  }
+
+  void _playerJump(double dt) {
+    velocity.y = -_jumpForce;
+    position.y += velocity.y * dt;
+    isOnGround = false;
+    hasJump = false;
   }
 
   void _updatePlayerState() {
@@ -162,6 +153,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
         if (checkCollisions(this, block)) {
           if (velocity.x > 0) {
             position.x = block.x - width;
+            break;
           }
           if (velocity.x < 0) {
             velocity.x = 0;
@@ -176,5 +168,26 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
     velocity.y += _gravity;
     velocity.y = velocity.y.clamp(-_jumpForce, _terminalVelocity);
     position.y += velocity.y * dt;
+  }
+
+  void _checkVerticalCollisions() {
+    for (final block in collisionBlocks) {
+      if (block.isPlatform) {
+      } else {
+        if (checkCollisions(this, block)) {
+          if (velocity.y > 0) {
+            velocity.y = 0;
+            position.y = block.y - (width - 10);
+            isOnGround = true;
+            break;
+          }
+          if (velocity.y < 0) {
+            velocity.y = 0;
+            position.y = block.y + block.height;
+            break;
+          }
+        }
+      }
+    }
   }
 }
