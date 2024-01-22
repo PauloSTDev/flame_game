@@ -8,15 +8,15 @@
     ],
     "fileStates": {
         "flame game.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 1.5,
             "scaleInEditor": 2
         },
         "level_01_new.tmx": {
             "scale": 1,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 312.5,
-                "y": 225
+                "x": 543.5,
+                "y": 216
             }
         }
     },

@@ -122,6 +122,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
 
   void _updatePlayerMovement(double dt) {
     if (hasJump && isOnGround) _playerJump(dt);
+    if (velocity.y > _gravity) isOnGround = false;
     velocity.x = horizontalMovement * moveSpeed;
     position.x += velocity.x * dt;
   }
@@ -173,6 +174,14 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
   void _checkVerticalCollisions() {
     for (final block in collisionBlocks) {
       if (block.isPlatform) {
+        if (checkCollisions(this, block)) {
+          if (velocity.y > 0) {
+            velocity.y = 0;
+            position.y = block.y - (width - 10);
+            isOnGround = true;
+            break;
+          }
+        }
       } else {
         if (checkCollisions(this, block)) {
           if (velocity.y > 0) {
