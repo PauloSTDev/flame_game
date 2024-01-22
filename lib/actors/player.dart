@@ -1,12 +1,14 @@
 import 'dart:async';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_game/components/collision_block.dart';
+import 'package:flame_game/components/player_hitbox.dart';
 import 'package:flame_game/components/utils.dart';
 import 'package:flame_game/my_flame_game.dart';
 import 'package:flutter/services.dart';
 
-enum PlayerState { idle, running }
+enum PlayerState { idle, running, jumping, falling }
 
 class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>, KeyboardHandler {
   Player({
@@ -30,6 +32,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
 
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation runningAnimation;
+  late final SpriteAnimation jumpingAnimation;
+  late final SpriteAnimation fallingAnimation;
 
   final double _gravity = 9.0;
   final double _jumpForce = 260.0;
@@ -40,11 +44,24 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
   bool isOnGround = false;
   bool hasJump = false;
   List<CollisionBlock> collisionBlocks = [];
+  PlayerHitbox hitbox = PlayerHitbox(
+    offsetX: 14,
+    offsetY: 10,
+    width: 22,
+    height: 28,
+  );
 
   @override
   FutureOr<void> onLoad() {
     _onLoadAllAnimations();
-    debugMode = true;
+    // debugMode = true;
+    add(RectangleHitbox(
+      position: Vector2(
+        hitbox.offsetX,
+        hitbox.offsetY,
+      ),
+      size: Vector2(hitbox.width, hitbox.height),
+    ));
     return super.onLoad();
   }
 
@@ -111,10 +128,22 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
       amountRun,
       stepTimeRun,
     );
+    jumpingAnimation = createSpriteAnimation(
+      'character/$character/attack.png',
+      2,
+      0.8,
+    );
+    fallingAnimation = createSpriteAnimation(
+      'character/$character/idle.png',
+      2,
+      0.8,
+    );
 
     animations = {
       PlayerState.idle: idleAnimation,
       PlayerState.running: runningAnimation,
+      PlayerState.jumping: jumpingAnimation,
+      PlayerState.falling: fallingAnimation,
     };
 
     current = playerState;
@@ -143,7 +172,11 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
       flipHorizontallyAroundCenter();
     }
 
-    if (velocity.x > 0 || velocity.x < 0) playerState = PlayerState.running;
+    if (velocity.x > 0 || velocity.x < 0 && !isOnGround) playerState = PlayerState.running;
+
+    if (velocity.y < 0) playerState = PlayerState.jumping;
+
+    if (velocity.y > 0) playerState = PlayerState.falling;
 
     current = playerState;
   }
@@ -153,12 +186,12 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
       if (!block.isPlatform) {
         if (checkCollisions(this, block)) {
           if (velocity.x > 0) {
-            position.x = block.x - width;
+            position.x = block.x - hitbox.offsetX - hitbox.width;
             break;
           }
           if (velocity.x < 0) {
             velocity.x = 0;
-            position.x = block.x + block.width + width;
+            position.x = block.x + block.width + hitbox.width + hitbox.offsetX;
           }
         }
       }
@@ -177,7 +210,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
         if (checkCollisions(this, block)) {
           if (velocity.y > 0) {
             velocity.y = 0;
-            position.y = block.y - (width - 10);
+            position.y = block.y - hitbox.height - hitbox.offsetY;
             isOnGround = true;
             break;
           }
@@ -186,13 +219,13 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
         if (checkCollisions(this, block)) {
           if (velocity.y > 0) {
             velocity.y = 0;
-            position.y = block.y - (width - 10);
+            position.y = block.y - hitbox.height - hitbox.offsetY;
             isOnGround = true;
             break;
           }
           if (velocity.y < 0) {
             velocity.y = 0;
-            position.y = block.y + block.height;
+            position.y = block.y + block.height - hitbox.offsetY;
             break;
           }
         }
