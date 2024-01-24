@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
-import 'package:flame/game.dart';
 import 'package:flame_game/actors/player.dart';
 import 'package:flame_game/components/collision_block.dart';
+import 'package:flame_game/components/fire.dart';
+import 'package:flame_game/components/items/fire_list.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 
 class Level extends World {
@@ -12,11 +14,21 @@ class Level extends World {
   List<CollisionBlock> collisionBlocks = [];
 
   Level({required this.player});
+  final List<Fire> spawnFiresList = firesList;
 
   @override
   FutureOr<void> onLoad() async {
     level = await TiledComponent.load('level_01_new.tmx', Vector2.all(16));
 
+    _addCollisions();
+    _spawingFire();
+    add(level);
+    add(player);
+
+    return super.onLoad();
+  }
+
+  void _addCollisions() {
     final collisionsLayer = level.tileMap.getLayer<ObjectGroup>('Collisions');
 
     if (collisionsLayer != null) {
@@ -41,22 +53,10 @@ class Level extends World {
         }
       }
     }
-
     player.collisionBlocks = collisionBlocks;
+  }
 
-    add(level);
-    add(player);
-    // final playerSkeleton = Player(
-    //   character: 'skeleton',
-    //   textureSize: Vector2(22, 100),
-    //   position: Vector2(110, 288),
-    //   amountIdle: 11,
-    //   amountRun: 13,
-    //   stepTimeIdle: 0.2,
-    //   stepTimeRun: 0.05,
-    //   playerState: PlayerState.running,
-    // );
-
-    return super.onLoad();
+  void _spawingFire() {
+    addAll(spawnFiresList);
   }
 }

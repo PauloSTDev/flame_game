@@ -5,6 +5,7 @@
     },
     "activeFile": "level_01_new.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
         "flame game.tsx": {
@@ -13,10 +14,10 @@
         },
         "level_01_new.tmx": {
             "scale": 1,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 543.5,
-                "y": 216
+                "x": 391,
+                "y": 145
             }
         }
     },

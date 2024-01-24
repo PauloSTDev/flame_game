@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_game/components/collision_block.dart';
-import 'package:flame_game/components/player_hitbox.dart';
+import 'package:flame_game/components/custom_hitbox.dart';
 import 'package:flame_game/components/utils.dart';
 import 'package:flame_game/my_flame_game.dart';
 import 'package:flutter/services.dart';
@@ -44,7 +44,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
   bool isOnGround = false;
   bool hasJump = false;
   List<CollisionBlock> collisionBlocks = [];
-  PlayerHitbox hitbox = PlayerHitbox(
+  CustomHitbox hitbox = CustomHitbox(
     offsetX: 14,
     offsetY: 10,
     width: 22,
@@ -82,16 +82,6 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>,
         keysPressed.contains(LogicalKeyboardKey.arrowLeft) || keysPressed.contains(LogicalKeyboardKey.keyA);
     final goToRight =
         keysPressed.contains(LogicalKeyboardKey.arrowRight) || keysPressed.contains(LogicalKeyboardKey.keyD);
-
-    // if (goToLeft && goToRight) {
-    //   playerDirection = PlayerDirection.none;
-    // } else if (goToLeft) {
-    //   playerDirection = PlayerDirection.left;
-    // } else if (goToRight) {
-    //   playerDirection = PlayerDirection.right;
-    // } else {
-    //   playerDirection = PlayerDirection.none;
-    // }
 
     horizontalMovement += goToLeft ? -1 : 0;
     horizontalMovement += goToRight ? 1 : 0;
