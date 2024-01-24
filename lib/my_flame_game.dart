@@ -8,7 +8,7 @@ import 'package:flame_game/actors/player.dart';
 import 'package:flame_game/levels/level.dart';
 import 'package:flutter/material.dart';
 
-class MyFlameGame extends FlameGame with HasKeyboardHandlerComponents, DragCallbacks {
+class MyFlameGame extends FlameGame with HasKeyboardHandlerComponents, DragCallbacks, HasCollisionDetection {
   @override
   Color backgroundColor() => const Color.fromARGB(255, 33, 31, 49);
 

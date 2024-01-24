@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 
 enum PlayerState { idle, running, jumping, falling }
 
-class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>, KeyboardHandler {
+class Player extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>, KeyboardHandler, CollisionCallbacks {
   Player({
     position,
     this.character = 'reaper',
