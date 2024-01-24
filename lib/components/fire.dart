@@ -17,6 +17,7 @@ class Fire extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>, C
   FireState fireStates;
   String color;
   Vector2 textureSize;
+  bool _collected = false;
   CustomHitbox hitbox = CustomHitbox(
     offsetX: 4,
     offsetY: 12,
@@ -29,7 +30,7 @@ class Fire extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>, C
 
   @override
   FutureOr<void> onLoad() {
-    debugMode = true;
+    // debugMode = true;
     priority = -1;
 
     add(
@@ -48,9 +49,10 @@ class Fire extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>, C
       String color,
       int amount,
       double stepTime,
+      String animationType,
     ) {
       return SpriteAnimation.fromFrameData(
-        game.images.fromCache('fires/loops/${color}_loops.png'),
+        game.images.fromCache('fires/$animationType/${color}_$animationType.png'),
         SpriteAnimationData.sequenced(
           amount: amount,
           textureSize: textureSize,
@@ -59,12 +61,23 @@ class Fire extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>, C
       );
     }
 
-    idleAnimation = createSpriteAnimation(color, 8, 0.15);
-    extinguishedAnimation = createSpriteAnimation(color, 5, 0.15);
+    idleAnimation = createSpriteAnimation(color, 8, 0.15, 'loops');
+    extinguishedAnimation = createSpriteAnimation(color, 5, 0.15, 'end');
 
     animations = {
       FireState.idle: idleAnimation,
       FireState.extinguished: extinguishedAnimation,
     };
+  }
+
+  void collidedWithPlayer() {
+    if (!_collected) {
+      current = FireState.extinguished;
+      _collected = true;
+    }
+    Future.delayed(const Duration(milliseconds: 700), () {
+      // Faz a chama desaparecer que chamou essa função desaparecer
+      removeFromParent();
+    });
   }
 }
