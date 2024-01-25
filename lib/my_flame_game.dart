@@ -73,19 +73,30 @@ class MyFlameGame extends FlameGame with HasKeyboardHandlerComponents, DragCallb
   void updateJoystick() {
     switch (joystick.direction) {
       case JoystickDirection.left:
-      case JoystickDirection.upLeft:
       case JoystickDirection.downLeft:
         player.horizontalMovement = -1;
         break;
 
-      case JoystickDirection.right:
+      case JoystickDirection.upLeft:
+        player.horizontalMovement = -1;
+        player.hasJump = true;
+        break;
       case JoystickDirection.upRight:
+        player.horizontalMovement = 1;
+        player.hasJump = true;
+        break;
+
+      case JoystickDirection.right:
       case JoystickDirection.downRight:
         player.horizontalMovement = 1;
         break;
 
+      case JoystickDirection.up:
+        player.hasJump = true;
+        break;
+
       default:
-        //idle
+        player.hasJump = false;
         player.horizontalMovement = 0;
         break;
     }
