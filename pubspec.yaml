@@ -66,8 +66,9 @@ flutter:
     - assets/images/Terrain/
     - assets/images/character/reaper/
     - assets/images/character/skeleton/
-    - assets/images/fires/end/
-    - assets/images/fires/loops/
+    - assets/images/components/fires/end/
+    - assets/images/components/fires/loops/
+    - assets/images/components/fire_skull/
     - assets/images/HUD/
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,5 +1,5 @@
 import 'package:flame/components.dart';
-import 'package:flame_game/components/fire.dart';
+import 'package:flame_game/components/items/fire/fire.dart';
 
 final _size = Vector2(24, 32);
 

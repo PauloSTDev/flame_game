@@ -4,8 +4,8 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_game/components/collision_block.dart';
 import 'package:flame_game/components/custom_hitbox.dart';
-import 'package:flame_game/components/fire.dart';
-import 'package:flame_game/components/utils.dart';
+import 'package:flame_game/components/items/fire/fire.dart';
+import 'package:flame_game/components/utils/utils.dart';
 import 'package:flame_game/my_flame_game.dart';
 import 'package:flutter/services.dart';
 

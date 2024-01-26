@@ -52,7 +52,7 @@ class Fire extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>, C
       String animationType,
     ) {
       return SpriteAnimation.fromFrameData(
-        game.images.fromCache('fires/$animationType/${color}_$animationType.png'),
+        game.images.fromCache('components/fires/$animationType/${color}_$animationType.png'),
         SpriteAnimationData.sequenced(
           amount: amount,
           textureSize: textureSize,

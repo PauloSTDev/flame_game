@@ -4,16 +4,19 @@ import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame_game/actors/player.dart';
 import 'package:flame_game/components/collision_block.dart';
-import 'package:flame_game/components/fire.dart';
-import 'package:flame_game/components/items/fire_list.dart';
+import 'package:flame_game/components/items/fire/fire.dart';
+import 'package:flame_game/components/items/fire/fire_list.dart';
+import 'package:flame_game/components/items/fire_skull/fire_skull.dart';
+
 import 'package:flame_tiled/flame_tiled.dart';
 
 class Level extends World {
   late TiledComponent level;
   final Player player;
+  final FireSkull fireSkull;
   List<CollisionBlock> collisionBlocks = [];
 
-  Level({required this.player});
+  Level({required this.player, required this.fireSkull});
   final List<Fire> spawnFiresList = firesList;
 
   @override
@@ -24,6 +27,7 @@ class Level extends World {
     _spawingFire();
     add(level);
     add(player);
+    add(fireSkull);
 
     return super.onLoad();
   }
