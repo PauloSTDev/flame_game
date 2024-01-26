@@ -3,7 +3,7 @@ import 'package:flame_game/components/items/fire/fire.dart';
 
 final _size = Vector2(24, 32);
 
-final firesList = [
+final fireList = [
   Fire(
     fireStates: FireState.idle,
     position: Vector2(51, 192),

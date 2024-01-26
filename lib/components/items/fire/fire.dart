@@ -76,7 +76,7 @@ class Fire extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame>, C
       _collected = true;
     }
     Future.delayed(const Duration(milliseconds: 700), () {
-      // Faz a chama desaparecer que chamou essa função desaparecer
+      // Faz a chama que chamou essa função desaparecer
       removeFromParent();
     });
   }

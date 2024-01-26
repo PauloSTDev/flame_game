@@ -9,7 +9,7 @@ class Ghost extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame> {
   Ghost({
     position,
     required this.textureSize,
-  }) : super(position: position, current: GhostState.idle);
+  }) : super(position: position, current: GhostState.appears);
 
   Vector2 textureSize;
 
@@ -17,10 +17,10 @@ class Ghost extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame> {
   double stepTimeIdle = 0.15;
 
   int amountAppears = 6;
-  double stepTimeAppears = 0.15;
+  double stepTimeAppears = 0.10;
 
   int amountVanish = 7;
-  double stepTimeVanish = 0.15;
+  double stepTimeVanish = 0.10;
 
   late SpriteAnimation animationIdle;
   late SpriteAnimation animationAppears;
@@ -30,6 +30,15 @@ class Ghost extends SpriteAnimationGroupComponent with HasGameRef<MyFlameGame> {
   FutureOr<void> onLoad() {
     _loadAnimations();
     return super.onLoad();
+  }
+
+  @override
+  void update(double dt) {
+    Future.delayed(
+      const Duration(milliseconds: 500),
+      () => current = GhostState.idle,
+    );
+    super.update(dt);
   }
 
   void _loadAnimations() {

@@ -2,26 +2,19 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
-import 'package:flame_game/actors/ghost.dart';
-import 'package:flame_game/actors/player.dart';
 import 'package:flame_game/components/collision_block.dart';
 import 'package:flame_game/components/items/fire/fire.dart';
 import 'package:flame_game/components/items/fire/fire_list.dart';
-import 'package:flame_game/components/items/fire_skull/fire_skull.dart';
+import 'package:flame_game/levels/actors_level.dart';
 
 import 'package:flame_tiled/flame_tiled.dart';
 
 class Level extends World {
   Level({
-    required this.player,
-    required this.fireSkull,
-    required this.ghost,
+    required List<SpriteAnimationGroupComponent> actorsList,
   });
-  final Player player;
-  final FireSkull fireSkull;
-  final Ghost ghost;
 
-  final List<Fire> spawnFiresList = firesList;
+  final List<Fire> spawnFiresList = fireList;
   List<CollisionBlock> collisionBlocks = [];
 
   late TiledComponent level;
@@ -32,10 +25,8 @@ class Level extends World {
 
     _addCollisions();
     _spawingFire();
-    add(ghost);
     add(level);
-    add(player);
-    add(fireSkull);
+    addAll(actorsLevelList);
 
     return super.onLoad();
   }
@@ -65,7 +56,7 @@ class Level extends World {
         }
       }
     }
-    player.collisionBlocks = collisionBlocks;
+    playerLevel.collisionBlocks = collisionBlocks;
   }
 
   void _spawingFire() {
