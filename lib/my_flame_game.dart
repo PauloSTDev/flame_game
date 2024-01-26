@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
+import 'package:flame_game/actors/ghost.dart';
 import 'package:flame_game/actors/player.dart';
 import 'package:flame_game/components/items/fire_skull/fire_skull.dart';
 import 'package:flame_game/levels/level.dart';
@@ -27,14 +28,22 @@ class MyFlameGame extends FlameGame with HasKeyboardHandlerComponents, DragCallb
     playerState: PlayerState.idle,
   );
 
+  FireSkull fireSkull = FireSkull(
+    position: Vector2(15, 30),
+  );
+
+  Ghost ghost = Ghost(
+    position: Vector2(270, 220),
+    textureSize: Vector2(64, 64),
+  );
+
   @override
   FutureOr<void> onLoad() async {
     await images.loadAllImages();
     final world = Level(
       player: player,
-      fireSkull: FireSkull(
-        position: Vector2(15, 30),
-      ),
+      fireSkull: fireSkull,
+      ghost: ghost,
     );
 
     cam = CameraComponent.withFixedResolution(world: world, width: 640, height: 360);

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
+import 'package:flame_game/actors/ghost.dart';
 import 'package:flame_game/actors/player.dart';
 import 'package:flame_game/components/collision_block.dart';
 import 'package:flame_game/components/items/fire/fire.dart';
@@ -11,13 +12,19 @@ import 'package:flame_game/components/items/fire_skull/fire_skull.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 
 class Level extends World {
-  late TiledComponent level;
+  Level({
+    required this.player,
+    required this.fireSkull,
+    required this.ghost,
+  });
   final Player player;
   final FireSkull fireSkull;
+  final Ghost ghost;
+
+  final List<Fire> spawnFiresList = firesList;
   List<CollisionBlock> collisionBlocks = [];
 
-  Level({required this.player, required this.fireSkull});
-  final List<Fire> spawnFiresList = firesList;
+  late TiledComponent level;
 
   @override
   FutureOr<void> onLoad() async {
@@ -25,6 +32,7 @@ class Level extends World {
 
     _addCollisions();
     _spawingFire();
+    add(ghost);
     add(level);
     add(player);
     add(fireSkull);

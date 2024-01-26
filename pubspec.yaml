@@ -66,6 +66,7 @@ flutter:
     - assets/images/Terrain/
     - assets/images/character/reaper/
     - assets/images/character/skeleton/
+    - assets/images/character/ghost/
     - assets/images/components/fires/end/
     - assets/images/components/fires/loops/
     - assets/images/components/fire_skull/
