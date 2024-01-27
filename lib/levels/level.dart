@@ -12,16 +12,18 @@ import 'package:flame_tiled/flame_tiled.dart';
 class Level extends World {
   Level({
     required List<SpriteAnimationGroupComponent> actorsList,
+    required this.levelCount,
   });
 
   final List<Fire> spawnFiresList = fireList;
   List<CollisionBlock> collisionBlocks = [];
 
   late TiledComponent level;
+  int levelCount;
 
   @override
   FutureOr<void> onLoad() async {
-    level = await TiledComponent.load('level_01_new.tmx', Vector2.all(16));
+    level = await TiledComponent.load('level_0${levelCount}_new.tmx', Vector2.all(16));
 
     _addCollisions();
     _spawingFire();

@@ -5,7 +5,7 @@ import 'package:flame_game/components/items/fire_skull/fire_skull.dart';
 
 final List<SpriteAnimationGroupComponent> actorsLevelList = [
   playerLevel,
-  fireSkullLevel,
+  // fireSkullLevel,
   ghostLevel,
 ];
 

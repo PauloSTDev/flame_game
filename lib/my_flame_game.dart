@@ -20,11 +20,17 @@ class MyFlameGame extends FlameGame with HasKeyboardHandlerComponents, DragCallb
   FutureOr<void> onLoad() async {
     await images.loadAllImages();
 
+    const int levelCount = 2;
+
+    const double width = levelCount == 1 ? 640 : 800;
+    const double height = levelCount == 1 ? 360 : 370;
+
     final world = Level(
       actorsList: actorsLevelList,
+      levelCount: levelCount,
     );
 
-    cam = CameraComponent.withFixedResolution(world: world, width: 640, height: 360);
+    cam = CameraComponent.withFixedResolution(world: world, width: width, height: height);
     cam.viewfinder.anchor = Anchor.topLeft;
     addAll([cam, world]);
 
